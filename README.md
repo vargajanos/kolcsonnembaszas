@@ -9,7 +9,9 @@ A rendszer három fő táblát használ:
 - user_id – egyedi azonosító (INT)
 - name – felhasználó neve (VARCHAR)
 - email – email cím (VARCHAR)
+- password - jelszó (VARCHAR SHA1)
 - membership_date – regisztráció dátuma (DATE)
+- role - jogosultság (user, admin)
 
 ###### items – kölcsönözhető tárgyak (könyvek, filmek)
 - item_id – egyedi azonosító (INT)
@@ -27,11 +29,12 @@ A rendszer három fő táblát használ:
 ### Feladatok
 - [ ] Felhasználói regisztráció: Készíts egy űrlapot, ahol a felhasználók megadhatják a nevüket és az e-mail címüket. A regisztráció dátuma automatikusan kerül az adatbázisba.
 
-- [ ] Tárgyak listázása és kölcsönzés:
+###### Tárgyak listázása és kölcsönzés:
 
 - [ ] Hozz létre egy oldalt, amely listázza az összes elérhető tárgyat (könyvek és filmek), csak azokat mutatva, amelyek elérhetők (available = true).
 - [ ] Minden tárgy mellett legyen egy "Kölcsönzés" gomb. Ha a felhasználó rákattint, hozz létre egy új bejegyzést a rentals táblában, és állítsd available = false-ra az adott tárgynál.
-- [ ] Kölcsönzések megtekintése:
+
+###### Kölcsönzések megtekintése:
 
 - [ ] Készíts egy oldalt, ahol a felhasználók megnézhetik az aktuális és korábbi kölcsönzéseiket.
 - [ ] Az oldalon jelenjen meg a kölcsönzés dátuma és a tárgy címe, valamint a visszahozás dátuma, ha már visszavitték.
@@ -40,11 +43,20 @@ A rendszer három fő táblát használ:
 
 - [ ] Minden kölcsönzött tárgy mellett jelenjen meg egy "Visszahozás" gomb.
 - [ ] Ha a felhasználó rákattint a gombra, a rendszer frissítse a return_date mezőt az aktuális dátummal, és állítsa available = true értékre a tárgyaknál.
-- [ ] Összetett SQL Lekérdezések:
+
+###### Összetett SQL Lekérdezések:
 
 - [ ] Listázd ki azokat a tárgyakat, amelyek még nem lettek visszahozva.
 - [ ] Számold meg, hogy hány könyvet és filmet kölcsönöztek ki összesen.
-- [ ] Extrák (haladó tanulóknak)
+
+##### Admin funkciók:
+
+- [ ] userek listázása
+- [ ] kölcsönzések listázás (minden user-é)
+- [ ] kölcsönözhető tárgyak kezelése (CRUD)
+
+###### Extrák (haladó tanulóknak)
+
 - [ ] Keresés és szűrés: Készíts keresési lehetőséget a kölcsönözhető tárgyak között, ahol a felhasználók cím vagy típus szerint szűrhetnek.
 - [ ] Felhasználói statisztikák: Listázd a legtöbb kölcsönzéssel rendelkező felhasználókat.
 - [ ] Értesítések: Adj hozzá funkciót, amely e-mail értesítést küld, ha egy kölcsönzött tárgy visszahozása késik.
