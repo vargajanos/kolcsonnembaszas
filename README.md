@@ -25,26 +25,26 @@ A rendszer három fő táblát használ:
 - rental_date – kölcsönzés dátuma (DATE)
 - return_date – visszahozás dátuma (DATE, alapértelmezett NULL, ha még nincs visszahozva)
 ### Feladatok
-- Felhasználói regisztráció: Készíts egy űrlapot, ahol a felhasználók megadhatják a nevüket és az e-mail címüket. A regisztráció dátuma automatikusan kerül az adatbázisba.
+- [ ] Felhasználói regisztráció: Készíts egy űrlapot, ahol a felhasználók megadhatják a nevüket és az e-mail címüket. A regisztráció dátuma automatikusan kerül az adatbázisba.
 
-- Tárgyak listázása és kölcsönzés:
+- [ ] Tárgyak listázása és kölcsönzés:
 
-- Hozz létre egy oldalt, amely listázza az összes elérhető tárgyat (könyvek és filmek), csak azokat mutatva, amelyek elérhetők (available = true).
-- Minden tárgy mellett legyen egy "Kölcsönzés" gomb. Ha a felhasználó rákattint, hozz létre egy új bejegyzést a rentals táblában, és állítsd available = false-ra az adott tárgynál.
-- Kölcsönzések megtekintése:
+- [ ] Hozz létre egy oldalt, amely listázza az összes elérhető tárgyat (könyvek és filmek), csak azokat mutatva, amelyek elérhetők (available = true).
+- [ ] Minden tárgy mellett legyen egy "Kölcsönzés" gomb. Ha a felhasználó rákattint, hozz létre egy új bejegyzést a rentals táblában, és állítsd available = false-ra az adott tárgynál.
+- [ ] Kölcsönzések megtekintése:
 
-- Készíts egy oldalt, ahol a felhasználók megnézhetik az aktuális és korábbi kölcsönzéseiket.
-- Az oldalon jelenjen meg a kölcsönzés dátuma és a tárgy címe, valamint a visszahozás dátuma, ha már visszavitték.
+- [ ] Készíts egy oldalt, ahol a felhasználók megnézhetik az aktuális és korábbi kölcsönzéseiket.
+- [ ] Az oldalon jelenjen meg a kölcsönzés dátuma és a tárgy címe, valamint a visszahozás dátuma, ha már visszavitték.
 
 ###### Visszahozás kezelése:
 
-- Minden kölcsönzött tárgy mellett jelenjen meg egy "Visszahozás" gomb.
-- Ha a felhasználó rákattint a gombra, a rendszer frissítse a return_date mezőt az aktuális dátummal, és állítsa available = true értékre a tárgyaknál.
-- Összetett SQL Lekérdezések:
+- [ ] Minden kölcsönzött tárgy mellett jelenjen meg egy "Visszahozás" gomb.
+- [ ] Ha a felhasználó rákattint a gombra, a rendszer frissítse a return_date mezőt az aktuális dátummal, és állítsa available = true értékre a tárgyaknál.
+- [ ] Összetett SQL Lekérdezések:
 
-- Listázd ki azokat a tárgyakat, amelyek még nem lettek visszahozva.
-- Számold meg, hogy hány könyvet és filmet kölcsönöztek ki összesen.
-- Extrák (haladó tanulóknak)
-- Keresés és szűrés: Készíts keresési lehetőséget a kölcsönözhető tárgyak között, ahol a felhasználók cím vagy típus szerint szűrhetnek.
-- Felhasználói statisztikák: Listázd a legtöbb kölcsönzéssel rendelkező felhasználókat.
-- Értesítések: Adj hozzá funkciót, amely e-mail értesítést küld, ha egy kölcsönzött tárgy visszahozása késik.
+- [ ] Listázd ki azokat a tárgyakat, amelyek még nem lettek visszahozva.
+- [ ] Számold meg, hogy hány könyvet és filmet kölcsönöztek ki összesen.
+- [ ] Extrák (haladó tanulóknak)
+- [ ] Keresés és szűrés: Készíts keresési lehetőséget a kölcsönözhető tárgyak között, ahol a felhasználók cím vagy típus szerint szűrhetnek.
+- [ ] Felhasználói statisztikák: Listázd a legtöbb kölcsönzéssel rendelkező felhasználókat.
+- [ ] Értesítések: Adj hozzá funkciót, amely e-mail értesítést küld, ha egy kölcsönzött tárgy visszahozása késik.
