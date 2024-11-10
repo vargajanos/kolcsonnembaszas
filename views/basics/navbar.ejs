@@ -23,21 +23,22 @@
                 <a class="nav-link" href="/rent">Mieten</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Abmelden</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/stat">Statistiken</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/me">ICH</a>
             </li>
-            <% } %>
-            <!--Admin ezt plusszba a bejelentkezett mellé jelenítjük meg-->
             <% if (session.userRole == "admin") { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Administrator</a>
+                </li>
+                <% } %>
             <li class="nav-item">
-                <a class="nav-link" href="/admin">Administrator</a>
+                <a class="nav-link" href="/logout">Abmelden</a>
             </li>
             <% } %>
+            <!--Admin ezt plusszba a bejelentkezett mellé jelenítjük meg-->
+
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Suchen">

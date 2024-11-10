@@ -4,6 +4,7 @@ const db = require('./database');
 const moment = require('moment');
 var CryptoJS = require("crypto-js");
 
+//regisztráció
 router.post('/reg', (req,res)=>{
     let {name, email, password, confirm} = req.body;
 
@@ -50,6 +51,7 @@ router.post('/reg', (req,res)=>{
 
 })
 
+//login
 router.post('/login', (req, res)=>{
     let { email, password } = req.body;
 

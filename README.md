@@ -27,12 +27,12 @@ A rendszer három fő táblát használ:
 - rental_date – kölcsönzés dátuma (DATE)
 - return_date – visszahozás dátuma (DATE, alapértelmezett NULL, ha még nincs visszahozva)
 ### Feladatok
-- [ ] Felhasználói regisztráció: Készíts egy űrlapot, ahol a felhasználók megadhatják a nevüket és az e-mail címüket. A regisztráció dátuma automatikusan kerül az adatbázisba.
+- [x] Felhasználói regisztráció: Készíts egy űrlapot, ahol a felhasználók megadhatják a nevüket és az e-mail címüket. A regisztráció dátuma automatikusan kerül az adatbázisba.
 
 ###### Tárgyak listázása és kölcsönzés:
 
-- [ ] Hozz létre egy oldalt, amely listázza az összes elérhető tárgyat (könyvek és filmek), csak azokat mutatva, amelyek elérhetők (available = true).
-- [ ] Minden tárgy mellett legyen egy "Kölcsönzés" gomb. Ha a felhasználó rákattint, hozz létre egy új bejegyzést a rentals táblában, és állítsd available = false-ra az adott tárgynál.
+- [x] Hozz létre egy oldalt, amely listázza az összes elérhető tárgyat (könyvek és filmek), csak azokat mutatva, amelyek elérhetők (available = true).
+- [x] Minden tárgy mellett legyen egy "Kölcsönzés" gomb. Ha a felhasználó rákattint, hozz létre egy új bejegyzést a rentals táblában, és állítsd available = false-ra az adott tárgynál.
 
 ###### Kölcsönzések megtekintése:
 

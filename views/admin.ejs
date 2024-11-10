@@ -4,6 +4,20 @@
 
 <%- include('message') %>
 
+<form action="/rent/post" method="post">
+    <div class="form-floating mb-3" style="width: 18rem;">
+        <input type="text" class="form-control" name="title" placeholder="">
+        <label for="title">Title</label>
+    </div>
+    <div style="width: 18rem;" class="form-floating mb-3">
+        <select name="type" class="form-select">
+            <option value="könyv">Book</option>
+            <option value="film">Film</option>
+          </select>
+          <label for="type">Type</label>
+    </div>
 
+    <input class="btn btn-primary mb-3" type="submit" value="Add" name="loginBtn">
+</form>
 
 <%- include('basics/footer') %>
