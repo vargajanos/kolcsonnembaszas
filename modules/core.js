@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ejs = require('ejs');
 const db = require('./database');
-const moment = require('moment');
+const moment = require("moment")
 //main ami a login
 router.get('/', (req, res) => {
     ejs.renderFile('./views/index.ejs', { session: req.session }, (err, html)=>{
@@ -69,14 +69,32 @@ router.get('/stat', (req, res)=>{
 //saját profilra
 router.get('/me', (req, res)=>{
     if (req.session.isLoggedIn){
-        ejs.renderFile('./views/user.ejs', { session: req.session }, (err, html)=>{
+        db.query(`SELECT rentals.ID as "ID", user_id, rental_date, return_date, item_id, items.title, items.type
+            FROM rentals
+            INNER JOIN items ON rentals.item_id = items.ID
+            WHERE user_id = ?`, [req.session.userID], (err, results)=>{
             if (err){
-                console.log(err);
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/');
                 return
             }
-            req.session.msg = '';
-            res.send(html);
-        });
+
+            results.forEach(item => {
+               item.rental_date = moment(item.rental_date).format("YYYY-MM-DD")
+               item.return_date = moment(item.return_date).format("YYYY-MM-DD")
+            });
+
+            ejs.renderFile('./views/user.ejs', { items: results, session: req.session }, (err, html) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                    req.session.msg = '';
+                    res.send(html);
+            });
+            return
+        })
         return
     }
     res.redirect('/');

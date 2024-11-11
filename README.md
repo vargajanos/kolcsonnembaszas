@@ -36,13 +36,13 @@ A rendszer három fő táblát használ:
 
 ###### Kölcsönzések megtekintése:
 
-- [ ] Készíts egy oldalt, ahol a felhasználók megnézhetik az aktuális és korábbi kölcsönzéseiket.
-- [ ] Az oldalon jelenjen meg a kölcsönzés dátuma és a tárgy címe, valamint a visszahozás dátuma, ha már visszavitték.
+- [x] Készíts egy oldalt, ahol a felhasználók megnézhetik az aktuális és korábbi kölcsönzéseiket.
+- [x] Az oldalon jelenjen meg a kölcsönzés dátuma és a tárgy címe, valamint a visszahozás dátuma, ha már visszavitték.
 
 ###### Visszahozás kezelése:
 
-- [ ] Minden kölcsönzött tárgy mellett jelenjen meg egy "Visszahozás" gomb.
-- [ ] Ha a felhasználó rákattint a gombra, a rendszer frissítse a return_date mezőt az aktuális dátummal, és állítsa available = true értékre a tárgyaknál.
+- [x] Minden kölcsönzött tárgy mellett jelenjen meg egy "Visszahozás" gomb.
+- [x] Ha a felhasználó rákattint a gombra, a rendszer frissítse a return_date mezőt az aktuális dátummal, és állítsa available = true értékre a tárgyaknál.
 
 ###### Összetett SQL Lekérdezések:
 

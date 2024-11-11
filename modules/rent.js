@@ -82,21 +82,42 @@ router.post('/rent:id', (req,res)=>{
 
 })
 
-//rent törlése
-router.post('/delete:id', (req,res)=>{
-    db.query(`DELETE FROM rentals WHERE ID = ?`,[req.params.id], (err, results)=>{
+router.post('/back:id', (req,res)=>{
+    db.query("SELECT * FROM rentals WHERE ID = ?", [req.params.id], (err, results) => {
         if (err){
             req.session.msg = 'Database error!';
             req.session.severity = 'danger';
-            res.redirect('/admin');
+            res.redirect('/me');
             return
         }
-        req.session.msg = 'User deleted!';
-        req.session.severity = 'success';
-        res.redirect('/admin');
-        return
+        console.log(results[0].item_id)
+        db.query(`UPDATE items SET available = 1 WHERE ID = ?`, [results[0].item_id], (err, results)=>{
+            if (err){
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/me');
+                return
+            }
+    
+        })
 
-    });
-
+        let today = moment(new Date()).format('YYYY-MM-DD');
+        db.query(`UPDATE rentals SET return_date = ? WHERE ID = ?`, [today, req.params.id], (err, results)=>{
+            if (err){
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/me');
+                return
+            }
+            res.redirect('/me');
+            req.session.msg = 'Erfolgreiche Rückkehr!';
+            req.session.severity = 'success';
+        })
+    })
+    
 })
+
+
+
+
 module.exports = router;
