@@ -84,6 +84,41 @@ router.post('/rent:id', (req,res)=>{
 
 })
 
+router.post('/back:id', (req,res)=>{
+    db.query("SELECT * FROM rentals WHERE ID = ?", [req.params.id], (err, results) => {
+        if (err){
+            req.session.msg = 'Database error!';
+            req.session.severity = 'danger';
+            res.redirect('/me');
+            return
+        }
+        console.log(results[0].item_id)
+        db.query(`UPDATE items SET available = 1 WHERE ID = ?`, [results[0].item_id], (err, results)=>{
+            if (err){
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/me');
+                return
+            }
+    
+        })
+
+        let today = moment(new Date()).format('YYYY-MM-DD');
+        db.query(`UPDATE rentals SET return_date = ? WHERE ID = ?`, [today, req.params.id], (err, results)=>{
+            if (err){
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/me');
+                return
+            }
+            res.redirect('/me');
+            req.session.msg = 'Erfolgreiche Rückkehr!';
+            req.session.severity = 'success';
+        })
+    })
+    
+})
+
 /*
 //összes aktiv item lekérdezése
 router.get('/active', (req,res)=>{

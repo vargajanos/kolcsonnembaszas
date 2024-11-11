@@ -4,6 +4,39 @@
 
 <%- include('message') %>
 
-
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Titel</th>
+        <th scope="col">Datum der Ausmiete</th>
+        <th scope="col">Rückgabedatum</th>
+        <th scope="col">Operationen</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% items.forEach((item, index) => { %>
+            <form action="/rent/back<%= item.ID %>" method="post">
+            <tr>
+                <th><%= (index + 1) %></th>
+                <td><%= item.title%></td>
+                <td><%= item.rental_date%></td>
+                <% if (item.return_date == "Invalid date" || item.return_date < item.rental_date) { %>
+                    <td>Nem lett még viszavíve</td>
+                    <td>
+                        <input class="btn btn-primary mb-3" type="submit" value="Zurückgeben" name="visszaadBtn">
+                    </td>
+                <% } else{ %>
+                    <td><%= item.return_date%></td>
+                    <td>
+                        <input class="btn btn-secondary mb-3 disabled" type="submit" aria-disabled="true" value="Zurückgeben" name="visszaadBtn">
+                    </td>
+                <% } %>
+               
+            </tr>
+            </form>
+        <% }) %>
+    </tbody>
+  </table>
 
 <%- include('basics/footer') %>
