@@ -66,8 +66,17 @@
                         <td class="text-center"><%= rent.Name %></td>
                         <td class="text-center"><%= rent.Title %></td>
                         <td class="text-center"><%= rent.RentalDate %></td>
-                        <td class="text-center"><%= rent.ReturnDate %></td>
-                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Visszavisz" name="deleteBtn"></a></td>
+                        <% if (item.return_date == "Invalid date" || item.return_date < item.rental_date) { %>
+                            <td>Nem lett még viszavíve</td>
+                            <td>
+                                <input class="btn btn-primary mb-3" type="submit" value="Zurückgeben" name="visszaadBtn">
+                            </td>
+                        <% } else{ %>
+                            <td><%= item.return_date%></td>
+                            <td>
+                                <input class="btn btn-secondary mb-3 disabled" type="submit" aria-disabled="true" value="Zurückgeben" name="visszaadBtn">
+                            </td>
+                        <% } %>
                     </tr>
                 </form>
             <% }) %>
