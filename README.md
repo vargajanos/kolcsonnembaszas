@@ -53,7 +53,7 @@ A rendszer három fő táblát használ:
 
 - [x] userek listázása
 - [x] kölcsönzések listázás (minden user-é)
-- [ ] kölcsönözhető tárgyak kezelése (CRUD)
+- [x] kölcsönözhető tárgyak kezelése (CRUD)
 
 ###### Extrák (haladó tanulóknak)
 

@@ -3,7 +3,9 @@ header{
     text-align: center;
     line-height: 250%;
 }
-
+body{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
 footer{
     font-size: 80%;
     letter-spacing: 3px;

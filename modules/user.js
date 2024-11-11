@@ -9,14 +9,14 @@ router.post('/reg', (req,res)=>{
     let {name, email, password, confirm} = req.body;
 
     if (!name || !email || !password || !confirm) {
-        req.session.msg = 'Missing data!';
+        req.session.msg = 'Fehlende Daten!';
         req.session.severity = 'danger';
         res.redirect('/reg');
         return
     }
 
     if (password != confirm){
-        req.session.msg = 'Passwords dont match!';
+        req.session.msg = 'Passwörter stimmen nicht überein!';
         req.session.severity = 'danger';
         res.redirect('/reg');
         return
@@ -25,7 +25,7 @@ router.post('/reg', (req,res)=>{
     let today = moment(new Date()).format('YYYY-MM-DD');
     db.query(`SELECT * FROM users WHERE email=?`, [email], (err, results)=>{
         if (err) {
-            req.session.msg = 'This e-mail already registered!';
+            req.session.msg = 'Diese E-Mail ist bereits registriert!';
             req.session.severity = 'danger';
             res.redirect('/reg');
             return
@@ -35,12 +35,12 @@ router.post('/reg', (req,res)=>{
         db.query(`INSERT INTO users (name, email, password, membership_date,role) VALUES(?, ?, SHA1(?), ?, 'user')`, 
         [name, email, password, today], (err, results)=>{
         if (err){
-            req.session.msg = 'Database error!';
+            req.session.msg = 'Datenbankfehler!';
             req.session.severity = 'danger';
             res.redirect('/reg');
             return
         }
-        req.session.msg = 'User registered!';
+        req.session.msg = 'Benutzer registriert!';
         req.session.severity = 'success';
         res.redirect('/');
         return
@@ -56,7 +56,7 @@ router.post('/login', (req, res)=>{
     let { email, password } = req.body;
 
     if (!email || !password) {
-        req.session.msg = 'Missing data!';
+        req.session.msg = 'Fehlende Daten!';
         req.session.severity = 'danger';
         res.redirect('/');
         return
@@ -64,18 +64,18 @@ router.post('/login', (req, res)=>{
 
     db.query(`SELECT * FROM users WHERE email=? AND password=?`, [email, CryptoJS.SHA1(password).toString()], (err, results)=>{
         if (err){
-            req.session.msg = 'Database error!';
+            req.session.msg = 'Datenbankfehler!';
             req.session.severity = 'danger';
             res.redirect('/');
             return
         }
         if (results == 0){
-            req.session.msg = 'Invalid credentials!';
+            req.session.msg = 'Ungültige Anmeldeinformationen!';
             req.session.severity = 'danger';
             res.redirect('/');  
             return
         }
-        req.session.msg = 'You are logged in!';
+        req.session.msg = 'Sie sind angemeldet!';
         req.session.severity = 'info';
 
         req.session.isLoggedIn = true;
@@ -94,12 +94,12 @@ router.post('/login', (req, res)=>{
 router.post('/delete:id', (req,res)=>{
     db.query(`DELETE FROM users WHERE ID = ?`,[req.params.id], (err, results)=>{
         if (err){
-            req.session.msg = 'Database error!';
+            req.session.msg = 'Datenbankfehler!';
             req.session.severity = 'danger';
             res.redirect('/admin');
             return
         }
-        req.session.msg = 'User deleted!';
+        req.session.msg = 'Benutzer gelöscht!';
         req.session.severity = 'success';
         res.redirect('/admin');
         return
