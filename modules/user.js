@@ -90,5 +90,22 @@ router.post('/login', (req, res)=>{
     });
 });
 
+//user delete
+router.post('/delete:id', (req,res)=>{
+    db.query(`DELETE FROM users WHERE ID = ?`,[req.params.id], (err, results)=>{
+        if (err){
+            req.session.msg = 'Database error!';
+            req.session.severity = 'danger';
+            res.redirect('/admin');
+            return
+        }
+        req.session.msg = 'User deleted!';
+        req.session.severity = 'success';
+        res.redirect('/admin');
+        return
+
+    });
+
+})
 
 module.exports = router;

@@ -51,8 +51,8 @@ A rendszer három fő táblát használ:
 
 ##### Admin funkciók:
 
-- [ ] userek listázása
-- [ ] kölcsönzések listázás (minden user-é)
+- [x] userek listázása
+- [x] kölcsönzések listázás (minden user-é)
 - [ ] kölcsönözhető tárgyak kezelése (CRUD)
 
 ###### Extrák (haladó tanulóknak)

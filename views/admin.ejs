@@ -1,6 +1,6 @@
 <%- include('basics/header') %>
 
-<h4 class="mb-3">Én</h4>
+<h4 class="mb-3">Administrator</h4>
 
 <%- include('message') %>
 
@@ -19,5 +19,61 @@
 
     <input class="btn btn-primary mb-3" type="submit" value="Add" name="loginBtn">
 </form>
+
+<h2>Users</h2>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">E-mail</th>
+            <th class="text-end">Műveletek</th>
+        </tr>
+    </thead>
+    <tbody>
+            <% users.forEach((user,index) => { %>
+                <form action="/users/delete<%=user.ID %>" method="post">
+                    <tr>
+                        <td><%= (index+1) %></td>
+                        <td class="text-center"><%= user.name %></td>
+                        <td class="text-center"><%= user.email %></td>
+                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Delete" name="deleteBtn"></a></td>
+                    </tr>
+                </form>
+            <% }) %>
+
+    </tbody>
+</table>
+
+
+<h2>Mieten</h2>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">RentalDate</th>
+            <th class="text-center">ReturnDate</th>
+            <th class="text-end">Műveletek</th>
+        </tr>
+    </thead>
+    <tbody>
+            <% rentals.forEach((rent,index) => { %>
+                <form action="/rent/delete<%=rent.ID %>" method="post">
+                    <tr>
+                        <td><%= (index+1) %></td>
+                        <td class="text-center"><%= rent.Name %></td>
+                        <td class="text-center"><%= rent.Title %></td>
+                        <td class="text-center"><%= rent.RentalDate %></td>
+                        <td class="text-center"><%= rent.ReturnDate %></td>
+                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Visszavisz" name="deleteBtn"></a></td>
+                    </tr>
+                </form>
+            <% }) %>
+
+    </tbody>
+</table>
+
 
 <%- include('basics/footer') %>

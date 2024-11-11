@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ejs = require('ejs');
 const db = require('./database');
+const moment = require('moment');
 //main ami a login
 router.get('/', (req, res) => {
     ejs.renderFile('./views/index.ejs', { session: req.session }, (err, html)=>{
@@ -24,6 +25,7 @@ router.get('/reg', (req, res) => {
         res.send(html);
     });
 });
+
 //rentre visz
 router.get('/rent', (req, res)=>{
     if (req.session.isLoggedIn){
@@ -82,15 +84,42 @@ router.get('/me', (req, res)=>{
 //admin oldalra
 router.get('/admin', (req, res)=>{
     if (req.session.isLoggedIn){
-        ejs.renderFile('./views/admin.ejs', { session: req.session }, (err, html)=>{
+        db.query(`SELECT * FROM users`, (err, results)=>{
+            
             if (err){
-                console.log(err);
+                req.session.msg = 'Database error!';
+                req.session.severity = 'danger';
+                res.redirect('/');
                 return
             }
-            req.session.msg = '';
-            res.send(html);
-        });
-        return
+            let users = results;
+            db.query(`SELECT * FROM rentals_`,(err, results)=>{
+                if (err){
+                    req.session.msg = 'Database error!';
+                    req.session.severity = 'danger';
+                    res.redirect('/');
+                    return
+                }
+                let rents = results
+                rents.forEach(item => {
+                    item.RentalDate = moment(item.RentalDate).format("YYYY-MM-DD")
+                    item.ReturnDate = moment(item.ReturnDate).format("YYYY-MM-DD")
+                });
+
+                ejs.renderFile('./views/admin.ejs', { session: req.session, users:users, rentals: rents }, (err, html)=>{
+                    if (err){
+                        console.log(err);
+                        return
+                    }
+                    req.session.msg = '';
+                    res.send(html);
+                });
+                return
+
+            })
+            return;
+        })
+        return;
     }
     res.redirect('/');
 });

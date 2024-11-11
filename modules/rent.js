@@ -80,30 +80,23 @@ router.post('/rent:id', (req,res)=>{
 
     })
 
-
-
 })
 
-/*
-//összes aktiv item lekérdezése
-router.get('/active', (req,res)=>{
-    db.query(`SELECT * FROM items WHERE available = 1`, (err, results)=>{
+//rent törlése
+router.post('/delete:id', (req,res)=>{
+    db.query(`DELETE FROM rentals WHERE ID = ?`,[req.params.id], (err, results)=>{
         if (err){
             req.session.msg = 'Database error!';
             req.session.severity = 'danger';
-            res.redirect('/');
+            res.redirect('/admin');
             return
         }
+        req.session.msg = 'User deleted!';
+        req.session.severity = 'success';
+        res.redirect('/admin');
+        return
 
-            ejs.renderFile('./views/rent.ejs', { items: results, session: req.session }, (err, html) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                req.session.msg = '';
-                res.send(html);
-            });
-    })
+    });
+
 })
-*/
 module.exports = router;
