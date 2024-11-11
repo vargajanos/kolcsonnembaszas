@@ -7,27 +7,27 @@
 <form action="/rent/post" method="post">
     <div class="form-floating mb-3" style="width: 18rem;">
         <input type="text" class="form-control" name="title" placeholder="">
-        <label for="title">Title</label>
+        <label for="title">Titel</label>
     </div>
     <div style="width: 18rem;" class="form-floating mb-3">
         <select name="type" class="form-select">
-            <option value="könyv">Book</option>
+            <option value="buch">Buch</option>
             <option value="film">Film</option>
           </select>
-          <label for="type">Type</label>
+          <label for="type">Typ</label>
     </div>
 
-    <input class="btn btn-primary mb-3" type="submit" value="Add" name="loginBtn">
+    <input class="btn btn-primary mb-3" type="submit" value="Hinzufügen" name="loginBtn">
 </form>
 
-<h2>Users</h2>
+<h2>Benutzer</h2>
 <table class="table table-striped mt-3">
     <thead>
         <tr>
             <th>#</th>
             <th class="text-center">Name</th>
             <th class="text-center">E-mail</th>
-            <th class="text-end">Műveletek</th>
+            <th class="text-end">Operationen</th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,7 @@
                         <td><%= (index+1) %></td>
                         <td class="text-center"><%= user.name %></td>
                         <td class="text-center"><%= user.email %></td>
-                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Delete" name="deleteBtn"></a></td>
+                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Löschen" name="deleteBtn"></a></td>
                     </tr>
                 </form>
             <% }) %>
@@ -45,6 +45,30 @@
     </tbody>
 </table>
 
+<h2>Artikel</h2>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th class="text-center">Titel</th>
+            <th class="text-center">Typ</th>
+            <th class="text-end">Operationen</th>
+        </tr>
+    </thead>
+    <tbody>
+            <% items.forEach((item,index) => { %>
+                <form action="/rent/item<%=item.ID %>" method="post">
+                    <tr>
+                        <td><%= (index+1) %></td>
+                        <td class="text-center"><%= item.title %></td>
+                        <td class="text-center"><%= item.type %></td>
+                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Löschen" name="deleteBtn"></a></td>
+                    </tr>
+                </form>
+            <% }) %>
+
+    </tbody>
+</table>
 
 <h2>Mieten</h2>
 <table class="table table-striped mt-3">
@@ -52,10 +76,10 @@
         <tr>
             <th>#</th>
             <th class="text-center">Name</th>
-            <th class="text-center">Title</th>
-            <th class="text-center">RentalDate</th>
-            <th class="text-center">ReturnDate</th>
-            <th class="text-end">Műveletek</th>
+            <th class="text-center">Titel</th>
+            <th class="text-center">Mietdatum</th>
+            <th class="text-center">Rückgabedatum</th>
+            <th class="text-end">Operationen</th>
         </tr>
     </thead>
     <tbody>
@@ -66,14 +90,14 @@
                         <td class="text-center"><%= rent.Name %></td>
                         <td class="text-center"><%= rent.Title %></td>
                         <td class="text-center"><%= rent.RentalDate %></td>
-                        <% if (item.return_date == "Invalid date" || item.return_date < item.rental_date) { %>
-                            <td>Nem lett még viszavíve</td>
-                            <td>
+                        <% if (rent.ReturnDate == "Invalid date" || rent.ReturnDate < rent.RentalDate) { %>
+                            <td class="text-center">Es wurde noch nicht zurückgegeben</td>
+                            <td class="text-end">
                                 <input class="btn btn-primary mb-3" type="submit" value="Zurückgeben" name="visszaadBtn">
                             </td>
-                        <% } else{ %>
-                            <td><%= item.return_date%></td>
-                            <td>
+                        <% } else{ %>   
+                            <td  class="text-center"><%= rent.RentalDate%></td>
+                            <td class="text-end">
                                 <input class="btn btn-secondary mb-3 disabled" type="submit" aria-disabled="true" value="Zurückgeben" name="visszaadBtn">
                             </td>
                         <% } %>

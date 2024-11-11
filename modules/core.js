@@ -31,7 +31,7 @@ router.get('/rent', (req, res)=>{
     if (req.session.isLoggedIn){
         db.query(`SELECT * FROM items WHERE available = 1`, (err, results)=>{
             if (err){
-                req.session.msg = 'Database error!';
+                req.session.msg = 'Datenbankfehler!';
                 req.session.severity = 'danger';
                 res.redirect('/');
                 return
@@ -74,7 +74,7 @@ router.get('/me', (req, res)=>{
             INNER JOIN items ON rentals.item_id = items.ID
             WHERE user_id = ?`, [req.session.userID], (err, results)=>{
             if (err){
-                req.session.msg = 'Database error!';
+                req.session.msg = 'Datenbankfehler!';
                 req.session.severity = 'danger';
                 res.redirect('/');
                 return
@@ -105,7 +105,7 @@ router.get('/admin', (req, res)=>{
         db.query(`SELECT * FROM users`, (err, results)=>{
             
             if (err){
-                req.session.msg = 'Database error!';
+                req.session.msg = 'Datenbankfehler!';
                 req.session.severity = 'danger';
                 res.redirect('/');
                 return
@@ -113,7 +113,7 @@ router.get('/admin', (req, res)=>{
             let users = results;
             db.query(`SELECT * FROM rentals_`,(err, results)=>{
                 if (err){
-                    req.session.msg = 'Database error!';
+                    req.session.msg = 'Datenbankfehler!';
                     req.session.severity = 'danger';
                     res.redirect('/');
                     return
@@ -124,15 +124,27 @@ router.get('/admin', (req, res)=>{
                     item.ReturnDate = moment(item.ReturnDate).format("YYYY-MM-DD")
                 });
 
-                ejs.renderFile('./views/admin.ejs', { session: req.session, users:users, rentals: rents }, (err, html)=>{
+                db.query(`SELECT * FROM items`, (err, results)=>{
                     if (err){
-                        console.log(err);
+                        req.session.msg = 'Datenbankfehler!';
+                        req.session.severity = 'danger';
+                        res.redirect('/');
                         return
                     }
-                    req.session.msg = '';
-                    res.send(html);
-                });
-                return
+                    let items = results
+
+                    ejs.renderFile('./views/admin.ejs', { session: req.session, users:users, rentals: rents, items:items }, (err, html)=>{
+                        if (err){
+                            console.log(err);
+                            return
+                        }
+                        req.session.msg = '';
+                        res.send(html);
+                    });
+                    return
+                })
+
+                return;
 
             })
             return;
@@ -150,7 +162,7 @@ router.get('/logout', (req, res)=>{
     req.session.userName = null;
     req.session.userEmail = null;
     req.session.userRole = null;
-    req.session.msg = 'You are logged out!';
+    req.session.msg = 'Sie sind abgemeldet!';
     req.session.severity = 'info';
     res.redirect('/');
 
