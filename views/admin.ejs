@@ -4,9 +4,9 @@
 
 <%- include('message') %>
 
-<form action="/rent/post" method="post">
+<form id="AddForm" action="/rent/post" method="post">
     <div class="form-floating mb-3" style="width: 18rem;">
-        <input type="text" class="form-control" name="title" placeholder="">
+        <input type="text" class="form-control" value="" name="title" placeholder="">
         <label for="title">Titel</label>
     </div>
     <div style="width: 18rem;" class="form-floating mb-3">
@@ -18,6 +18,22 @@
     </div>
 
     <input class="btn btn-primary mb-3" type="submit" value="Hinzufügen" name="loginBtn">
+</form>
+
+<form id="UpdateForm" style="display: none;" action="/rent/update" method="post">
+    <div class="form-floating mb-3" style="width: 18rem;">
+        <input id="selectTitle" type="text" class="form-control" value="" name="title" placeholder="">
+        <label for="title">Titel</label>
+    </div>
+    <div style="width: 18rem;" class="form-floating mb-3">
+        <select id="selectType" name="type" class="form-select">
+            <option value="buch">Buch</option>
+            <option value="film">Film</option>
+          </select>
+          <label for="type">Typ</label>
+    </div>
+
+    <input class="btn btn-primary mb-3" type="submit" value="Aktualisieren" name="loginBtn">
 </form>
 
 <h2>Benutzer</h2>
@@ -32,12 +48,12 @@
     </thead>
     <tbody>
             <% users.forEach((user,index) => { %>
-                <form action="/users/delete<%=user.ID %>" method="post">
+                <form  method="post">
                     <tr>
                         <td><%= (index+1) %></td>
                         <td class="text-center"><%= user.name %></td>
                         <td class="text-center"><%= user.email %></td>
-                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Löschen" name="deleteBtn"></a></td>
+                        <td class="text-end"><input class="btn btn-danger" type="submit" value="Löschen" name="deleteBtn"></a></td>
                     </tr>
                 </form>
             <% }) %>
@@ -51,20 +67,25 @@
         <tr>
             <th>#</th>
             <th class="text-center">Titel</th>
-            <th class="text-center">Typ</th>
+            <th class="text-end">Typ</th>
             <th class="text-end">Operationen</th>
         </tr>
     </thead>
     <tbody>
             <% items.forEach((item,index) => { %>
-                <form action="/rent/item<%=item.ID %>" method="post">
-                    <tr>
-                        <td><%= (index+1) %></td>
-                        <td class="text-center"><%= item.title %></td>
-                        <td class="text-center"><%= item.type %></td>
-                        <td class="text-end"><input class="btn btn-secondary" type="submit" value="Löschen" name="deleteBtn"></a></td>
+                <form action="/rent/item<%= item.ID %>" method="post">  
+                <tr data-id="<%= item.ID %>">
+                    <td><%= (index + 1) %></td>
+                    <td class="item-title text-center"><%= item.title %></td>
+                    <td class="item-type text-end"><%= item.type %></td>
+                    <td class="text-end">
+                        <input class="btn btn-primary" value="Aktualisieren" onclick="update(<%= item.ID %>)" name="updateBtn">
+                        <input class="btn btn-danger" type="submit" value="Löschen" name="deleteBtn"></a>
+                    </td>
+                        
                     </tr>
                 </form>
+                
             <% }) %>
 
     </tbody>
@@ -93,10 +114,10 @@
                         <% if (rent.ReturnDate == "Invalid date" || rent.ReturnDate < rent.RentalDate) { %>
                             <td class="text-center">Es wurde noch nicht zurückgegeben</td>
                             <td class="text-end">
-                                <input class="btn btn-primary mb-3" type="submit" value="Zurückgeben" name="visszaadBtn">
+                                <input class="btn btn-primary mb-3" type="submit" value="Zurückgeben" data-bs-toggle="modal" data-bs-target="#modal" name="visszaadBtn">
                             </td>
                         <% } else{ %>   
-                            <td  class="text-center"><%= rent.RentalDate%></td>
+                            <td  class="text-center"><%= rent.ReturnDate%></td>
                             <td class="text-end">
                                 <input class="btn btn-secondary mb-3 disabled" type="submit" aria-disabled="true" value="Zurückgeben" name="visszaadBtn">
                             </td>
@@ -107,6 +128,31 @@
 
     </tbody>
 </table>
-
-
 <%- include('basics/footer') %>
+
+
+<script>
+function update(itemId){
+    
+    let AddForm = document.getElementById('AddForm');
+    let UpdateForm = document.getElementById('UpdateForm');
+
+    AddForm.style.display = "none";
+    UpdateForm.style.display = "block";
+
+    let title = document.querySelector(`tr[data-id='${itemId}'] .item-title`);
+    let type = document.querySelector(`tr[data-id='${itemId}'] .item-type`);
+    
+    let selectTitle = document.getElementById('selectTitle');
+    let selectType = document.getElementById('selectType');
+
+    
+    selectTitle.value = title.innerHTML;
+    selectType.value = type.innerHTML;
+
+    UpdateForm.action = `/rent/update${itemId}`
+
+    
+}
+
+</script>

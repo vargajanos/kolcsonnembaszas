@@ -5,29 +5,28 @@ const ejs = require('ejs');
 const moment = require('moment');
 
 //adminként item felvétel
-router.post('/post', (req,res)=>{
-    let {title, type} = req.body;
+router.post('/post', (req, res) => {
+    let { title, type } = req.body; 
 
     if (!title || !type) {
         req.session.msg = 'Fehlende Daten!';
         req.session.severity = 'danger';
         res.redirect('/admin');
-        return
+        return;
     }
 
-       db.query(`INSERT INTO items (title, type, available) VALUES(?, ?, 1)`, 
-        [title, type], (err, results)=>{ 
-        if (err){
-            req.session.msg = 'Datenbankfehler!';
-            req.session.severity = 'danger';
-            res.redirect('/admin');
-            return
-        }
-        req.session.msg = 'Artikel hinzugefügt!';
-        req.session.severity = 'success';
-        res.redirect('/admin');
-        return
-    })
+        db.query(`INSERT INTO items (title, type, available) VALUES(?, ?, 1)`, 
+                [title, type], (err, results) => { 
+                if (err){
+                    req.session.msg = 'Datenbankfehler!';
+                    req.session.severity = 'danger';
+                    res.redirect('/admin');
+                    return;
+                }
+                req.session.msg = 'Artikel hinzugefügt!';
+                req.session.severity = 'success';
+                res.redirect('/admin');
+        });
 })
 
 //összes item lekérdezése
@@ -170,5 +169,24 @@ router.post('/delete:id', (req,res)=>{
     
 })
 
+router.post('/update:id', (req,res)=>{
+    
+    let {title, type} = req.body
+
+    db.query(`UPDATE items SET title = ?, type = ? WHERE ID = ?`, [title, type, req.params.id], (err, results)=>{
+        if (err){
+            req.session.msg = 'Datenbankfehler!';
+            req.session.severity = 'danger';
+            res.redirect('/admin');
+            return
+        }
+        req.session.msg = 'Erfolgreiche Änderung!';
+        req.session.severity = 'success';
+        res.redirect('/admin');
+        return
+    })
+    
+
+})
 
 module.exports = router;
