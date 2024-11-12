@@ -51,20 +51,53 @@ router.get('/rent', (req, res)=>{
     }
     res.redirect('/');
 });
+
 //statisztiákra visz
 router.get('/stat', (req, res)=>{
-    if (req.session.isLoggedIn){
-        ejs.renderFile('./views/statistics.ejs', { session: req.session }, (err, html)=>{
+    db.query('SELECT COUNT(*) as "count" FROM `items` INNER JOIN rentals ON items.ID = rentals.item_id WHERE items.type LIKE "buch"', (err, results)=>{
+        if (err){
+            req.session.msg = 'Datenbankfehler!';
+            req.session.severity = 'danger';
+            res.redirect('/');
+            return
+        }
+        
+        let book_count = results;
+
+        db.query('SELECT COUNT(*) as "count" FROM `items` INNER JOIN rentals ON items.ID = rentals.item_id WHERE items.type LIKE "film"', (err, results)=>{
             if (err){
-                console.log(err);
+                req.session.msg = 'Datenbankfehler!';
+                req.session.severity = 'danger';
+                res.redirect('/');
                 return
             }
-            req.session.msg = '';
-            res.send(html);
-        });
-        return
-    }
-    res.redirect('/');
+            let film_count = results;
+
+            db.query('SELECT COUNT(*) as "count", users.name FROM users, rentals WHERE rentals.user_id = users.ID GROUP BY rentals.user_id DESC LIMIT 1;', (err, results)=>{
+                if (err){
+                    req.session.msg = 'Datenbankfehler!';
+                    req.session.severity = 'danger';
+                    res.redirect('/');
+                    return
+                }
+    
+                let user = results[0];
+                if (req.session.isLoggedIn){
+                    ejs.renderFile('./views/statistics.ejs', { session: req.session, book_c: book_count[0], film_c: film_count[0], most_user: user }, (err, html)=>{
+                        if (err){
+                            console.log(err);
+                            return
+                        }
+                        req.session.msg = '';
+                        res.send(html);
+                    });
+                    return
+                }
+                return
+            })
+            return
+        })
+    })
 });
 //saját profilra
 router.get('/me', (req, res)=>{

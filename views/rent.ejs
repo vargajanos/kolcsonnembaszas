@@ -1,24 +1,26 @@
 <%- include('basics/header') %>
 
-<h4 class="mb-3">Mieten</h4>
+<h4 class="mb-3 text-center">Mieten</h4>
 
 <%- include('message') %>
 
-
-<% items.forEach(item=> { %>
-<form action="/rent/rent<%= item.ID %>" method="post">
-  <div class="card mb-3" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"><%= item.title %></h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary"><%= item.type %></h6>
-      <div>
-        <input class="btn btn-secondary mb-3" type="submit" value="Mieten" name="regBtn">
+<div class="row row-cols-auto">
+  <% items.forEach(item=> { %>
+    <form action="/rent/rent<%= item.ID %>" method="post">
+      <div class="card mb-3 col-2" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= item.title %></h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary"><%= item.type %></h6>
+          <div>
+            <input class="btn btn-secondary mb-3" type="submit" value="Mieten" name="regBtn">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</form>
+    </form>
+    
+    <% }) %>
+</div>
 
-<% }) %>
 
 
 

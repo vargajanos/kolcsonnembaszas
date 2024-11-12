@@ -1,9 +1,12 @@
 <%- include('basics/header') %>
 
-<h4 class="mb-3">Statistiken</h4>
+<h2 class="mb-3 text-center">Statistiken</h2>
 
 <%- include('message') %>
 
-
+<h5>Gesamtzahl der ausgeliehenen Bücher: <%= book_c.count %></h5>
+<h5>Gesamtzahl der ausgeliehenen Filme: <%= film_c.count %></h5>
+<h5>Gesamtzahl der ausgeliehenen Gegenstände: <%= film_c.count + book_c.count %></h5>
+<h5>Benutzer, der am meisten Kredite aufnimmt: <%= most_user.name %>, <%= most_user.count %> Kreditvergabe</h5>
 
 <%- include('basics/footer') %>
