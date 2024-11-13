@@ -47,7 +47,7 @@ A rendszer három fő táblát használ:
 ###### Összetett SQL Lekérdezések:
 
 - [x] Listázd ki azokat a tárgyakat, amelyek még nem lettek visszahozva.
-- [ ] Számold meg, hogy hány könyvet és filmet kölcsönöztek ki összesen.
+- [x] Számold meg, hogy hány könyvet és filmet kölcsönöztek ki összesen.
 
 ##### Admin funkciók:
 
@@ -58,5 +58,5 @@ A rendszer három fő táblát használ:
 ###### Extrák (haladó tanulóknak)
 
 - [x] Keresés és szűrés: Készíts keresési lehetőséget a kölcsönözhető tárgyak között, ahol a felhasználók cím vagy típus szerint szűrhetnek.
-- [ ] Felhasználói statisztikák: Listázd a legtöbb kölcsönzéssel rendelkező felhasználókat.
+- [x] Felhasználói statisztikák: Listázd a legtöbb kölcsönzéssel rendelkező felhasználókat.
 - [ ] Értesítések: Adj hozzá funkciót, amely e-mail értesítést küld, ha egy kölcsönzött tárgy visszahozása késik.
