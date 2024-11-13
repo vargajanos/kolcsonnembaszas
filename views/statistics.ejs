@@ -3,10 +3,31 @@
 <h2 class="mb-3 text-center">Statistiken</h2>
 
 <%- include('message') %>
-
-<h5>Gesamtzahl der ausgeliehenen Bücher: <%= book_c.count %></h5>
-<h5>Gesamtzahl der ausgeliehenen Filme: <%= film_c.count %></h5>
-<h5>Gesamtzahl der ausgeliehenen Gegenstände: <%= film_c.count + book_c.count %></h5>
-<h5>Benutzer, der am meisten Kredite aufnimmt: <%= most_user.name %>, <%= most_user.count %> Kreditvergabe</h5>
+<div class="row row-cols-auto">
+    <div class="card m-3 col-2" style="width: 16rem;">
+        <div class="card-body">
+        <h5 class="card-title">Gesamtzahl der ausgeliehenen Bücher:</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"><%=  book_c.count %></h6>
+        </div>
+    </div>
+    <div class="card m-3 col-2" style="width: 16rem;">
+        <div class="card-body">
+        <h5 class="card-title">Gesamtzahl der ausgeliehenen Filme:</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"><%=  film_c.count %></h6>
+        </div>
+    </div>
+    <div class="card m-3 col-2" style="width: 16rem;">
+        <div class="card-body">
+        <h5 class="card-title">Gesamtzahl der ausgeliehenen Gegenstände:</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"><%=  film_c.count + book_c.count %></h6>
+        </div>
+    </div>
+    <div class="card m-3 col-2" style="width: 16rem;">
+        <div class="card-body">
+        <h5 class="card-title">Benutzer, der am meisten Kredite aufnimmt:</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary"><%= most_user.name %>, <%= most_user.count %></h6>
+        </div>
+    </div>
+</div>
 
 <%- include('basics/footer') %>
