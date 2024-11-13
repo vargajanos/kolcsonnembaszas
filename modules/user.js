@@ -84,7 +84,6 @@ router.post('/login', (req, res)=>{
         req.session.userEmail = results[0].email;
         req.session.userRole = results[0].role;
 
-        console.log(req.session);
         res.redirect('/rent');
         return
     });

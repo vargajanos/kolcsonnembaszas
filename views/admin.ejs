@@ -6,7 +6,7 @@
 
 <form id="AddForm" action="/rent/post" method="post">
     <div class="form-floating mb-3" style="width: 18rem;">
-        <input type="text" class="form-control" value="" name="title" placeholder="">
+        <input type="text" class="form-baszas form-control" value="" name="title" placeholder="">
         <label for="title">Titel</label>
     </div>
     <div style="width: 18rem;" class="form-floating mb-3">
@@ -22,7 +22,7 @@
 
 <form id="UpdateForm" style="display: none;" action="/rent/update" method="post">
     <div class="form-floating mb-3" style="width: 18rem;">
-        <input id="selectTitle" type="text" class="form-control" value="" name="title" placeholder="">
+        <input id="selectTitle" type="text" class="form-baszas form-control" value="" name="title" placeholder="">
         <label for="title">Titel</label>
     </div>
     <div style="width: 18rem;" class="form-floating mb-3">
@@ -43,6 +43,7 @@
             <th>#</th>
             <th class="text-center">Name</th>
             <th class="text-center">E-mail</th>
+            <th class="text-center">Rolle</th>
             <th class="text-end">Operationen</th>
         </tr>
     </thead>
@@ -53,7 +54,13 @@
                         <td><%= (index+1) %></td>
                         <td class="text-center"><%= user.name %></td>
                         <td class="text-center"><%= user.email %></td>
-                        <td class="text-end"><input class="btn btn-danger" type="submit" value="Löschen" name="deleteBtn"></a></td>
+                        <td class="text-center"><%= user.role %></td>
+                        <% if (user.role != "admin") { %>
+                            <td class="text-end"><input class="btn btn-danger" type="submit" value="Löschen" name="deleteBtn"></td>
+                        <% } else { %>
+                            <td class="text-end"></td>
+                            
+                        <% } %>
                     </tr>
                 </form>
             <% }) %>
@@ -79,8 +86,8 @@
                     <td class="item-title text-center"><%= item.title %></td>
                     <td class="item-type text-end"><%= item.type %></td>
                     <td class="text-end">
-                        <input class="btn btn-primary" value="Aktualisieren" onclick="update(<%= item.ID %>)" name="updateBtn">
-                        <input class="btn btn-danger" type="submit" value="Löschen" name="deleteBtn"></a>
+                        <input class="btn btn-primary" readonly value="Aktualisieren" onclick="update(<%= item.ID %>)" name="updateBtn">
+                        <input class="btn btn-danger" readonly type="submit" value="Löschen" name="deleteBtn"></a>
                     </td>
                         
                     </tr>
