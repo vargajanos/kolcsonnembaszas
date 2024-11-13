@@ -107,7 +107,7 @@ router.post('/back:id', (req,res)=>{
             res.redirect('/me');
             return
         }
-        console.log(results[0].item_id)
+        
         db.query(`UPDATE items SET available = 1 WHERE ID = ?`, [results[0].item_id], (err, results)=>{
             if (err){
                 req.session.msg = 'Datenbankfehler!';
@@ -142,7 +142,7 @@ router.post('/delete:id', (req,res)=>{
             res.redirect('/admin');
             return
         }
-        console.log(results[0].item_id)
+
         db.query(`UPDATE items SET available = 1 WHERE ID = ?`, [results[0].item_id], (err, results)=>{
             if (err){
                 req.session.msg = 'Datenbankfehler!';
